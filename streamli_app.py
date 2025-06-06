@@ -15,7 +15,7 @@ with st.sidebar:
 chat = None
 if api_key:
     try:
-        model = genai.GenerativeModel("gemini-pro")
+        model = genai.GenerativeModel("Gemini 2.5 Flash Preview 05-20")
         chat = model.start_chat(history=[])
     except Exception as e:
         st.error(f"Error initializing Gemini model: {e}")

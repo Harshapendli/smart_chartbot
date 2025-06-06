@@ -1,5 +1,37 @@
 import streamlit as st
 import google.generativeai as genai
+import base64
+
+# Set page configuration
+st.set_page_config(page_title="Gemini Chatbot", layout="wide")
+
+# Function to set background image
+def set_background(image_file):
+    with open(image_file, "rb") as file:
+        encoded_string = base64.b64encode(file.read()).decode()
+    st.markdown(
+        f"""
+        <style>
+        .stApp {{
+            background-image: url("data:image/png;base64,{encoded_string}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-attachment: fixed;
+        }}
+        .stChatMessage {{
+            background-color: rgba(255, 255, 255, 0.75);
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+        }}
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
+# Set background image
+set_background("pyconf hyderabdad.png")
 
 # Sidebar for API key input
 with st.sidebar:
@@ -11,7 +43,7 @@ with st.sidebar:
     else:
         st.warning("Please enter your Gemini API key.", icon="⚠️")
 
-# Initialize chat model (chat object is created only after API key is set)
+# Initialize chat model
 chat = None
 if api_key:
     try:

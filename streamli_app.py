@@ -30,8 +30,8 @@ def set_background(image_file):
         unsafe_allow_html=True
     )
 
-# Set background image
-set_background("pyconf hyderabdad.png")
+# Set background image using your file
+set_background("pyconf_hyderabdad.png")
 
 # Sidebar for API key input
 with st.sidebar:

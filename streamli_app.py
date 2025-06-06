@@ -13,7 +13,7 @@ def set_background(image_file):
         f"""
         <style>
         .stApp {{
-            background-image: url("data:image/png;base64,{encoded_string}");
+            background-image: url("data:image/jpeg;base64,{encoded_string}");
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center;
@@ -30,7 +30,7 @@ def set_background(image_file):
         unsafe_allow_html=True
     )
 
-# Set background image using your file
+# Set background image using your .jpg file
 set_background("pyconf_hyderabdad.jpg")
 
 # Sidebar for API key input

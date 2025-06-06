@@ -1,10 +1,9 @@
 import streamlit as st
 import google.generativeai as genai
 
-# Sidebar for Gemini API Key input
+# Sidebar for API key input
 with st.sidebar:
     st.title('🤖💬 Gemini Chatbot')
-
     api_key = st.text_input("Enter your Gemini API key:", type='password')
     if api_key:
         genai.configure(api_key=api_key)
@@ -12,39 +11,37 @@ with st.sidebar:
     else:
         st.warning("Please enter your Gemini API key.", icon="⚠️")
 
-# Initialize chat model
-model = None
+# Initialize chat model (chat object is created only after API key is set)
+chat = None
 if api_key:
     try:
         model = genai.GenerativeModel("gemini-pro")
+        chat = model.start_chat(history=[])
     except Exception as e:
-        st.error(f"Error loading Gemini model: {e}")
+        st.error(f"Error initializing Gemini model: {e}")
 
-# Initialize chat history
+# Session state to hold message history
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-# Display previous messages
+# Display past messages
 for msg in st.session_state.messages:
     with st.chat_message(msg["role"]):
         st.markdown(msg["content"])
 
-# Chat input
-if prompt := st.chat_input("Ask something..."):
+# Accept user input
+if prompt := st.chat_input("Ask me anything..."):
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
         st.markdown(prompt)
 
-    if model:
+    if chat:
         with st.chat_message("assistant"):
             message_placeholder = st.empty()
-            full_response = ""
             try:
-                response = model.generate_content(
-                    [m["content"] for m in st.session_state.messages if m["role"] == "user"]
-                )
-                full_response = response.text
-                message_placeholder.markdown(full_response)
-                st.session_state.messages.append({"role": "assistant", "content": full_response})
+                response = chat.send_message(prompt)
+                reply = response.text
+                message_placeholder.markdown(reply)
+                st.session_state.messages.append({"role": "assistant", "content": reply})
             except Exception as e:
                 st.error(f"Gemini API Error: {str(e)}")

@@ -7,23 +7,45 @@ st.set_page_config(page_title="Gemini Chatbot", layout="wide")
 
 # Function to set background image
 def set_background(image_file):
+    import base64
     with open(image_file, "rb") as file:
         encoded_string = base64.b64encode(file.read()).decode()
+    
     st.markdown(
         f"""
         <style>
         .stApp {{
             background-image: url("data:image/jpeg;base64,{encoded_string}");
-            background-size: contain;
             background-repeat: no-repeat;
             background-position: center center;
             background-attachment: fixed;
+            background-size: contain;
+            transition: background-size 0.3s ease, background-position 0.3s ease;
         }}
-        .stChatMessage {{
-            background-color: rgba(255, 255, 255, 0.75);
-            padding: 1rem;
-            border-radius: 12px;
-            margin-bottom: 1rem;
+
+        /* Adjust padding to ensure image is centered regardless of sidebar */
+        section[data-testid="stSidebar"] + div > div {{
+            padding-left: 1rem !important;
+            padding-right: 1rem !important;
+        }}
+
+        /* Responsive adjustments */
+        @media (max-width: 1200px) {{
+            .stApp {{
+                background-size: 80%;
+            }}
+        }}
+
+        @media (max-width: 768px) {{
+            .stApp {{
+                background-size: 90%;
+            }}
+        }}
+
+        @media (min-width: 1200px) {{
+            .stApp {{
+                background-size: 70%;
+            }}
         }}
         </style>
         """,

@@ -1,0 +1,36 @@
+import streamlit as st
+
+# Set page config
+st.set_page_config(page_title="Gemini Chatbot", page_icon="🤖", layout="wide")
+
+# Load custom CSS for background
+def set_background():
+    st.markdown(
+        f"""
+        <style>
+        .stApp {{
+            background: url("background.jpg");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+        }}
+        .stChatMessage {{
+            background-color: rgba(0, 0, 0, 0.6) !important;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }}
+        .css-1cpxqw2, .css-1kyxreq {{
+            background-color: rgba(0,0,0,0.6) !important;
+        }}
+        .stTextInput input {{
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+        }}
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
+set_background()

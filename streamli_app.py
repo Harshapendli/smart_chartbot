@@ -14,9 +14,9 @@ def set_background(image_file):
         <style>
         .stApp {{
             background-image: url("data:image/jpeg;base64,{encoded_string}");
-            background-size: fixed;
+            background-size: cover;
             background-repeat: no-repeat;
-            background-position: center;
+            background-position: center center;
             background-attachment: fixed;
         }}
         .stChatMessage {{

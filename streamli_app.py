@@ -31,7 +31,7 @@ def set_background(image_file):
     )
 
 # Set background image using your file
-set_background("pyconf_hyderabdad.png")
+set_background("pyconf_hyderabdad.jpg")
 
 # Sidebar for API key input
 with st.sidebar:
